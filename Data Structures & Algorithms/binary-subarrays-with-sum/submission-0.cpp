@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int numSubarraysWithSum(vector<int>& nums, int goal) {
+        
+        return helper(nums, goal) - helper(nums, goal-1); 
+    }
+    int helper(vector<int>& nums, int goal){
+        if(goal < 0){
+            return 0; 
+        }
+        int res = 0;
+        int left = 0; 
+        int sum = 0;
+        for(int right = 0; right < nums.size(); right++){
+            sum += nums[right];
+            while(sum > goal){
+                sum -= nums[left];
+                left++;
+            }
+            res += right - left + 1;
+        }
+        return res;
+    }
+};
